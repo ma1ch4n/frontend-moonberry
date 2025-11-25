@@ -15,16 +15,39 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    // Check if token exists
+  const checkAuth = () => {
     const token = localStorage.getItem('token');
+    console.log('Checking auth, token exists:', !!token);
     setIsAuthenticated(!!token);
     setLoading(false);
+  };
+
+  useEffect(() => {
+    // Initial auth check
+    checkAuth();
+
+    // Listen for storage changes (when login sets token)
+    const handleStorageChange = () => {
+      console.log('Storage changed, rechecking auth...');
+      checkAuth();
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    
+    // Also check auth on page load
+    window.addEventListener('load', checkAuth);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('load', checkAuth);
+    };
   }, []);
 
   if (loading) {
     return <div className="app-loading">Loading...</div>;
   }
+
+  console.log('App rendered, isAuthenticated:', isAuthenticated);
 
   return (
     <Router>
@@ -36,42 +59,41 @@ function App() {
           {/* Login and Register should redirect to dashboard if already authenticated */}
           <Route 
             path="/login" 
-            element={isAuthenticated ? <Navigate to="/dashboard" /> : <Login />} 
+            element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <Login />} 
           />
           <Route 
             path="/register" 
-            element={isAuthenticated ? <Navigate to="/dashboard" /> : <Register />} 
+            element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <Register />} 
           />
           
-          {/* Dashboard should redirect to login if not authenticated */}
+          {/* Protected routes */}
           <Route 
             path="/dashboard" 
-            element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />} 
+            element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" replace />} 
           />
-           <Route 
+          <Route 
             path="/employees" 
-            element={isAuthenticated ? <Employee /> : <Navigate to="/login" />} 
+            element={isAuthenticated ? <Employee /> : <Navigate to="/login" replace />} 
           />
-           <Route 
+          <Route 
             path="/suppliers" 
-            element={isAuthenticated ? <Supplier /> : <Navigate to="/login" />} 
+            element={isAuthenticated ? <Supplier /> : <Navigate to="/login" replace />} 
           />
           <Route 
             path="/utensils" 
-            element={isAuthenticated ? <Utensils /> : <Navigate to="/login" />} 
+            element={isAuthenticated ? <Utensils /> : <Navigate to="/login" replace />} 
           />
-           <Route 
+          <Route 
             path="/ingredients" 
-            element={isAuthenticated ? <Ingredients /> : <Navigate to="/login" />} 
+            element={isAuthenticated ? <Ingredients /> : <Navigate to="/login" replace />} 
           />
-            <Route
+          <Route
             path="/flavors"
-            element={isAuthenticated ? <Flavors /> : <Navigate to="/login" />}
+            element={isAuthenticated ? <Flavors /> : <Navigate to="/login" replace />}
           />
-          
           
           {/* Catch all route - redirect to landing page */}
-          <Route path="*" element={<Navigate to="/" />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
     </Router>

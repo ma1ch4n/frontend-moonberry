@@ -24,19 +24,30 @@ const Login = () => {
     setError('');
     
     try {
+      console.log('Attempting login...');
+      
       const res = await axios.post('https://backend-moonberry.onrender.com/login', {
         username,
         password
       });
       
+      console.log('Login response:', res.data);
+      
+      // Store authentication data
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('user', JSON.stringify(res.data.user));
       
-      // Force a page reload to update the authentication state in App.js
-      window.location.href = '/dashboard';
+      console.log('Token stored, navigating to dashboard...');
+      
+      // Force React to recognize the auth state change
+      window.dispatchEvent(new Event('storage'));
+      
+      // Navigate to dashboard
+      navigate('/dashboard');
       
     } catch (err) {
-      setError(err.response?.data?.message || 'An error occurred');
+      console.error('Login error:', err);
+      setError(err.response?.data?.message || 'An error occurred during login');
     } finally {
       setLoading(false);
     }
@@ -44,9 +55,9 @@ const Login = () => {
 
   return (
     <div className="auth-container">
-        <div className="moon-berry-logo">
-          Moon<span>🌙</span>Berry
-        </div>
+      <div className="moon-berry-logo">
+        Moon<span>🌙</span>Berry
+      </div>
       <div className="auth-form">
         <h2>Staff Login</h2>
         {error && <div className="error-message">{error}</div>}
