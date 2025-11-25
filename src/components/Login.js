@@ -24,7 +24,7 @@ const Login = () => {
     setError('');
     
     try {
-      const res = await axios.post('https://backend-moonberry.onrender.com', {
+      const res = await axios.post('https://backend-moonberry.onrender.com/login', {
         username,
         password
       });
