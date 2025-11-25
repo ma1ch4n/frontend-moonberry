@@ -40,7 +40,7 @@ const Dashboard = () => {
         return;
       }
 
-      const res = await axios.get('http://localhost:5000/dashboard', {
+      const res = await axios.get('https://backend-moonberry.onrender.com/dashboard', {
         headers: {
           Authorization: `Bearer ${token}`
         }

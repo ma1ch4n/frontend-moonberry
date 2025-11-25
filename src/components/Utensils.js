@@ -94,7 +94,7 @@ const Utensils = () => {
   const fetchUtensils = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:5000/api/utensils', {
+      const res = await axios.get('https://backend-moonberry.onrender.com/api/utensils', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setUtensils(res.data);
@@ -108,7 +108,7 @@ const Utensils = () => {
   const fetchCategories = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:5000/api/utensils/categories', {
+      const res = await axios.get('https://backend-moonberry.onrender.com/api/utensils/categories', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setCategories(res.data);
@@ -122,7 +122,7 @@ const Utensils = () => {
   const fetchSuppliers = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:5000/api/suppliers?category=UTENSILS', {
+      const res = await axios.get('https://backend-moonberry.onrender.com/api/suppliers?category=UTENSILS', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setSuppliers(res.data);
@@ -216,14 +216,14 @@ const Utensils = () => {
       });
 
       if (editingUtensil) {
-        await axios.put(`http://localhost:5000/api/utensils/${editingUtensil._id}`, data, {
+        await axios.put(`https://backend-moonberry.onrender.com/api/utensils/${editingUtensil._id}`, data, {
           headers: { 
             Authorization: `Bearer ${token}`,
             'Content-Type': 'multipart/form-data'
           }
         });
       } else {
-        await axios.post('http://localhost:5000/api/utensils', data, {
+        await axios.post('https://backend-moonberry.onrender.com/api/utensils', data, {
           headers: { 
             Authorization: `Bearer ${token}`,
             'Content-Type': 'multipart/form-data'
@@ -265,7 +265,7 @@ const Utensils = () => {
     if (window.confirm('Are you sure you want to delete this utensil?')) {
       try {
         const token = localStorage.getItem('token');
-        await axios.delete(`http://localhost:5000/api/utensils/${id}`, {
+        await axios.delete(`https://backend-moonberry.onrender.com/api/utensils/${id}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         fetchUtensils();
@@ -279,7 +279,7 @@ const Utensils = () => {
   const handleStatusUpdate = async (id, newStatus) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.patch(`http://localhost:5000/api/utensils/${id}/status`, 
+      await axios.patch(`https://backend-moonberry.onrender.com/api/utensils/${id}/status`, 
         { status: newStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -577,7 +577,7 @@ const Utensils = () => {
               <div className="utensil-header-info">
                 <div className="utensil-image">
                   {utensil.imageUrl ? (
-                    <img src={`http://localhost:5000${utensil.imageUrl}`} alt={utensil.name} />
+                    <img src={`https://backend-moonberry.onrender.com${utensil.imageUrl}`} alt={utensil.name} />
                   ) : (
                     <div className="placeholder-image">
                       {utensil.name.charAt(0).toUpperCase()}

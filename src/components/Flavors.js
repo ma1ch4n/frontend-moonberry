@@ -86,7 +86,7 @@ const Flavors = () => {
   const fetchFlavors = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:5000/api/flavors', {
+      const res = await axios.get('https://backend-moonberry.onrender.com/api/flavors', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setFlavors(res.data);
@@ -100,7 +100,7 @@ const Flavors = () => {
   const fetchCategories = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:5000/api/flavors/categories', {
+      const res = await axios.get('https://backend-moonberry.onrender.com/api/flavors/categories', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setCategories(res.data);
@@ -114,7 +114,7 @@ const Flavors = () => {
   const fetchSuppliers = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:5000/api/suppliers?category=FLAVORS', {
+      const res = await axios.get('https://backend-moonberry.onrender.com/api/suppliers?category=FLAVORS', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setSuppliers(res.data);
@@ -273,14 +273,14 @@ const Flavors = () => {
       });
 
       if (editingFlavor) {
-        await axios.put(`http://localhost:5000/api/flavors/${editingFlavor._id}`, data, {
+        await axios.put(`https://backend-moonberry.onrender.com/api/flavors/${editingFlavor._id}`, data, {
           headers: { 
             Authorization: `Bearer ${token}`,
             'Content-Type': 'multipart/form-data'
           }
         });
       } else {
-        await axios.post('http://localhost:5000/api/flavors', data, {
+        await axios.post('https://backend-moonberry.onrender.com/api/flavors', data, {
           headers: { 
             Authorization: `Bearer ${token}`,
             'Content-Type': 'multipart/form-data'
@@ -322,7 +322,7 @@ const Flavors = () => {
     if (window.confirm('Are you sure you want to delete this flavor?')) {
       try {
         const token = localStorage.getItem('token');
-        await axios.delete(`http://localhost:5000/api/flavors/${id}`, {
+        await axios.delete(`https://backend-moonberry.onrender.com/api/flavors/${id}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         fetchFlavors();
@@ -336,7 +336,7 @@ const Flavors = () => {
   const handleStatusUpdate = async (id, newStatus) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.patch(`http://localhost:5000/api/flavors/${id}/status`, 
+      await axios.patch(`https://backend-moonberry.onrender.com/api/flavors/${id}/status`, 
         { status: newStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -709,7 +709,7 @@ const Flavors = () => {
               <div className="flavor-header-info">
                 <div className="flavor-image">
                   {flavor.imageUrl ? (
-                    <img src={`http://localhost:5000${flavor.imageUrl}`} alt={flavor.name} />
+                    <img src={`https://backend-moonberry.onrender.com${flavor.imageUrl}`} alt={flavor.name} />
                   ) : (
                     <div className="placeholder-image">
                       {flavor.name.charAt(0).toUpperCase()}

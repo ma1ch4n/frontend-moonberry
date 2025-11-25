@@ -50,7 +50,7 @@ const Supplier = () => {
   const fetchSuppliers = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:5000/api/suppliers', {
+      const res = await axios.get('https://backend-moonberry.onrender.com/api/suppliers', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setSuppliers(res.data);
@@ -64,7 +64,7 @@ const Supplier = () => {
   const fetchCategories = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:5000/api/suppliers/categories', {
+      const res = await axios.get('https://backend-moonberry.onrender.com/api/suppliers/categories', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setCategories(res.data);
@@ -78,7 +78,7 @@ const Supplier = () => {
   const fetchContracts = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:5000/api/suppliers/contracts', {
+      const res = await axios.get('https://backend-moonberry.onrender.com/api/suppliers/contracts', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setContracts(res.data);
@@ -119,14 +119,14 @@ const Supplier = () => {
       });
 
       if (editingSupplier) {
-        await axios.put(`http://localhost:5000/api/suppliers/${editingSupplier._id}`, data, {
+        await axios.put(`https://backend-moonberry.onrender.com/api/suppliers/${editingSupplier._id}`, data, {
           headers: { 
             Authorization: `Bearer ${token}`,
             'Content-Type': 'multipart/form-data'
           }
         });
       } else {
-        await axios.post('http://localhost:5000/api/suppliers', data, {
+        await axios.post('https://backend-moonberry.onrender.com/api/suppliers', data, {
           headers: { 
             Authorization: `Bearer ${token}`,
             'Content-Type': 'multipart/form-data'
@@ -165,7 +165,7 @@ const Supplier = () => {
     if (window.confirm('Are you sure you want to delete this supplier?')) {
       try {
         const token = localStorage.getItem('token');
-        await axios.delete(`http://localhost:5000/api/suppliers/${id}`, {
+        await axios.delete(`https://backend-moonberry.onrender.com/api/suppliers/${id}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         fetchSuppliers();
@@ -179,7 +179,7 @@ const Supplier = () => {
   const handleStatusUpdate = async (id, newStatus) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.patch(`http://localhost:5000/api/suppliers/${id}/status`, 
+      await axios.patch(`https://backend-moonberry.onrender.com/api/suppliers/${id}/status`, 
         { status: newStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -463,7 +463,7 @@ const Supplier = () => {
               <div className="supplier-header-info">
                 <div className="supplier-logo">
                   {supplier.documentUrl ? (
-                    <img src={`http://localhost:5000${supplier.documentUrl}`} alt={supplier.name} />
+                    <img src={`https://backend-moonberry.onrender.com${supplier.documentUrl}`} alt={supplier.name} />
                   ) : (
                     <div className="placeholder-logo">
                       {supplier.name.charAt(0).toUpperCase()}
@@ -511,7 +511,7 @@ const Supplier = () => {
                   <div className="supplier-documents">
                     <strong>Document:</strong>
                     <a 
-                      href={`http://localhost:5000${supplier.documentUrl}`} 
+                      href={`https://backend-moonberry.onrender.com${supplier.documentUrl}`} 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="document-link"

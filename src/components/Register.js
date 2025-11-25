@@ -31,7 +31,7 @@ const Register = () => {
     setLoading(true);
     
     try {
-      await axios.post('https://backend-moonberry.onrender.com', {
+      await axios.post('https://backend-moonberry.onrender.com/register', {
         username,
         email,
         password

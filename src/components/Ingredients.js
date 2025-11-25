@@ -104,7 +104,7 @@ const Ingredients = () => {
   const fetchIngredients = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:5000/api/ingredients', {
+      const res = await axios.get('https://backend-moonberry.onrender.com/api/ingredients', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setIngredients(res.data);
@@ -118,7 +118,7 @@ const Ingredients = () => {
   const fetchCategories = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:5000/api/ingredients/categories', {
+      const res = await axios.get('https://backend-moonberry.onrender.com/api/ingredients/categories', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setCategories(res.data);
@@ -132,7 +132,7 @@ const Ingredients = () => {
   const fetchSuppliers = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:5000/api/suppliers?category=INGREDIENTS', {
+      const res = await axios.get('https://backend-moonberry.onrender.com/api/suppliers?category=INGREDIENTS', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setSuppliers(res.data);
@@ -242,14 +242,14 @@ const Ingredients = () => {
       });
 
       if (editingIngredient) {
-        await axios.put(`http://localhost:5000/api/ingredients/${editingIngredient._id}`, data, {
+        await axios.put(`https://backend-moonberry.onrender.com/api/ingredients/${editingIngredient._id}`, data, {
           headers: { 
             Authorization: `Bearer ${token}`,
             'Content-Type': 'multipart/form-data'
           }
         });
       } else {
-        await axios.post('http://localhost:5000/api/ingredients', data, {
+        await axios.post('https://backend-moonberry.onrender.com/api/ingredients', data, {
           headers: { 
             Authorization: `Bearer ${token}`,
             'Content-Type': 'multipart/form-data'
@@ -290,7 +290,7 @@ const Ingredients = () => {
     if (window.confirm('Are you sure you want to delete this ingredient?')) {
       try {
         const token = localStorage.getItem('token');
-        await axios.delete(`http://localhost:5000/api/ingredients/${id}`, {
+        await axios.delete(`https://backend-moonberry.onrender.com/api/ingredients/${id}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         fetchIngredients();
@@ -304,7 +304,7 @@ const Ingredients = () => {
   const handleStatusUpdate = async (id, newStatus) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.patch(`http://localhost:5000/api/ingredients/${id}/status`, 
+      await axios.patch(`https://backend-moonberry.onrender.com/api/ingredients/${id}/status`, 
         { status: newStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -675,7 +675,7 @@ const Ingredients = () => {
               <div className="ingredient-header-info">
                 <div className="ingredient-image">
                   {ingredient.imageUrl ? (
-                    <img src={`http://localhost:5000${ingredient.imageUrl}`} alt={ingredient.name} />
+                    <img src={`https://backend-moonberry.onrender.com${ingredient.imageUrl}`} alt={ingredient.name} />
                   ) : (
                     <div className="placeholder-image">
                       {ingredient.name.charAt(0).toUpperCase()}

@@ -34,7 +34,7 @@ const Employee = () => {
   const fetchEmployees = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:5000/api/employees', {
+      const res = await axios.get('https://backend-moonberry.onrender.com/api/employees', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setEmployees(res.data);
@@ -77,14 +77,14 @@ const Employee = () => {
       });
 
       if (editingEmployee) {
-        await axios.put(`http://localhost:5000/api/employees/${editingEmployee._id}`, data, {
+        await axios.put(`https://backend-moonberry.onrender.com/api/employees/${editingEmployee._id}`, data, {
           headers: { 
             Authorization: `Bearer ${token}`,
             'Content-Type': 'multipart/form-data'
           }
         });
       } else {
-        await axios.post('http://localhost:5000/api/employees', data, {
+        await axios.post('https://backend-moonberry.onrender.com/api/employees', data, {
           headers: { 
             Authorization: `Bearer ${token}`,
             'Content-Type': 'multipart/form-data'
@@ -121,7 +121,7 @@ const Employee = () => {
     if (window.confirm('Are you sure you want to delete this employee?')) {
       try {
         const token = localStorage.getItem('token');
-        await axios.delete(`http://localhost:5000/api/employees/${id}`, {
+        await axios.delete(`https://backend-moonberry.onrender.com/api/employees/${id}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         fetchEmployees();
@@ -347,7 +347,7 @@ const Employee = () => {
             <div key={employee._id} className="employee-card">
               <div className="employee-photo">
                 {employee.photoUrl ? (
-                  <img src={`http://localhost:5000${employee.photoUrl}`} alt={employee.name} />
+                  <img src={`https://backend-moonberry.onrender.com${employee.photoUrl}`} alt={employee.name} />
                 ) : (
                   <div className="placeholder-photo">
                     {employee.name.charAt(0).toUpperCase()}
